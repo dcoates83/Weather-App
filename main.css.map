@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://weather-app/./src/style.scss"],"names":[],"mappings":"AAAA;EACE;EACA;EAAA;EAAA;EACA;AACF,C","file":"main.css","sourcesContent":["h1 {\n  color: red;\n  display: flex;\n  justify-self: center;\n}\n"],"sourceRoot":""}

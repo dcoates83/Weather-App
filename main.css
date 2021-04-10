@@ -1,0 +1,9 @@
+h1 {
+  color: red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-self: center;
+}
+
+/*# sourceMappingURL=main.css.map*/
