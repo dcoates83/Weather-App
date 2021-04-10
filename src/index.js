@@ -1,4 +1,5 @@
 import "./style.scss";
+import { getDate, setTime } from "./date.js";
 
 const location = async () => {
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";

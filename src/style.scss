@@ -1,5 +1,60 @@
-h1 {
-  color: red;
+svg {
+  height: 3.125rem;
+  width: 3.125rem;
+  fill: black;
+}
+.forecast-daily-container {
   display: flex;
-  justify-self: center;
+  justify-content: space-around;
+  height: 30vh;
+  align-items: center;
+}
+
+.main-weather-container {
+  display: flex;
+  justify-content: space-between;
+  // margin-bottom: 1em;
+  padding-right: 1em;
+  align-items: center;
+}
+.weather-info-icon {
+  align-self: center;
+  text-align: center;
+  display: contents;
+  svg {
+    height: 25vh;
+    width: 25vh;
+  }
+}
+.weather-info {
+  font-size: 3rem;
+  height: 60vh;
+  width: 35vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.25em;
+  }
+  h2 {
+    font-size: 32px;
+    margin-top: 0;
+  }
+  h3 {
+    font-size: 1.15rem;
+  }
+  input {
+    width: 15vw;
+    border-radius: 0.3125rem;
+  }
+}
+.weather-details-icon {
+  padding: 0.75em;
+  display: flex;
+  justify-content: center;
+}
+.weather-details-container {
+  text-align: center;
 }
