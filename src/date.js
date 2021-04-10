@@ -64,4 +64,5 @@ function setTime(params) {
 }
 setTime();
 getDate();
+
 export { getDate, setTime };
