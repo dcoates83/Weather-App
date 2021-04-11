@@ -87,4 +87,91 @@ svg {
   text-align: center;
 }
 
+.units {
+  padding-left: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.weather-info-units {
+  border: 1px solid black;
+  text-align: center;
+  padding: 5px 5px 0;
+  border-radius: 50%;
+}
+
+.icon {
+  height: 3rem;
+  width: 3rem;
+}
+
+.show-me {
+  display: none;
+}
+
+.Cloudy-day {
+  background: url(e9c905594db6d403e625.svg);
+  background-repeat: no-repeat;
+}
+
+.Cloudy-night {
+  background: url(66de11a7d84bd1df7f2f.svg);
+  background-repeat: no-repeat;
+}
+
+.Clouds {
+  background: url(b9fcb030f24e707cc365.svg);
+  background-repeat: no-repeat;
+}
+
+.Humidity {
+  background: url(f1d6a408086ccf1129b6.svg);
+  background-repeat: no-repeat;
+}
+
+.Lightning {
+  background: url(0767f7e33b2146e12ead.svg);
+  background-repeat: no-repeat;
+}
+
+.Mist {
+  background: url(e0f3afdaad3b95e64742.svg);
+  background-repeat: no-repeat;
+}
+
+.Moon {
+  background: url(c57c882fef1e942dfcf5.svg);
+  background-repeat: no-repeat;
+}
+
+.Rain {
+  background: url(37ce28ecc5190449f33f.svg);
+  background-repeat: no-repeat;
+  fill: black;
+}
+
+.Snow {
+  background: url(010c46a90727ddd9fd70.svg);
+  background-repeat: no-repeat;
+}
+
+.Sun {
+  background: url(9b2e1396149eab76a24a.svg);
+  background-repeat: no-repeat;
+}
+
+.Clear {
+  background: url(9b2e1396149eab76a24a.svg);
+  background-repeat: no-repeat;
+}
+
+.Wind {
+  background: url(e74a83c87ee76070629f.svg);
+  background-repeat: no-repeat;
+}
+
 /*# sourceMappingURL=main.css.map*/
