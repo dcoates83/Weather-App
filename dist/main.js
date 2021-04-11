@@ -26355,18 +26355,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "changeTodaysTempF": () => (/* binding */ changeTodaysTempF),
 /* harmony export */   "changeNWeekTempC": () => (/* binding */ changeNWeekTempC),
 /* harmony export */   "changeNWeekTempF": () => (/* binding */ changeNWeekTempF),
-/* harmony export */   "createTodaysIcon": () => (/* binding */ createTodaysIcon)
+/* harmony export */   "createTodaysIcon": () => (/* reexport safe */ _dom_js__WEBPACK_IMPORTED_MODULE_1__.createTodaysIcon)
 /* harmony export */ });
 /* harmony import */ var _getElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getElement.js */ "./src/getElement.js");
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom.js */ "./src/dom.js");
 
+
+
+// ** Change Today Main Weather Temperature
 function changeTodaysTempC(data) {
   const todaysTemp = (0,_getElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(".weather-info-temperature");
-  console.log(data.weather[0].main);
   todaysTemp.textContent = data.main.temp + " °C";
 }
 function changeTodaysTempF(data) {
   const todaysTemp = (0,_getElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(".weather-info-temperature");
-  console.log(data.weather[0].main);
   todaysTemp.textContent = data.main.temp + " °F";
 }
 
@@ -26394,7 +26396,7 @@ function changeNWeekTempF(data) {
     i.textContent = min.shift() + " °F";
   });
   icons.forEach((i) => {
-    createIcon(i, weather);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_1__.createWeeklyIcon)(i, weather);
   });
 }
 
@@ -26423,22 +26425,8 @@ function changeNWeekTempC(data) {
     i.textContent = min.shift() + " °C";
   });
   icons.forEach((i) => {
-    createWeeklyIcon(i, weather);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_1__.createWeeklyIcon)(i, weather);
   });
-}
-// ** Create Icons
-function createWeeklyIcon(i, weather) {
-  let div = document.createElement("div");
-  div.classList.add(weather.shift(), "icon");
-  i.append(div);
-  return i;
-}
-function createTodaysIcon(weather, html) {
-  let div = document.createElement("div");
-  div.classList.add(weather, "bigIcon");
-  html.append(div);
-
-  return html;
 }
 
 
@@ -26515,7 +26503,6 @@ function getTime(params) {
     hour: "2-digit",
     minute: "2-digit",
   });
-  // time.toLocaleTimeString("en-US");
   return time;
 }
 function setTime(params) {
@@ -26523,8 +26510,128 @@ function setTime(params) {
   let html = (0,_getElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(".weather-info-time");
   html.textContent = time;
 }
-setTime();
+function days() {
+  const weekdays = [...document.querySelectorAll(".forecast-daily-day")];
+  let day = new Date();
+  let week = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  // console.log(weekdays);
+  for (let i = 0; i < 7; i++) {
+    weekdays[i].textContent = week[day.getDay() + i];
+  }
+}
+days();
+// setTime();
 getDate();
+
+
+
+
+/***/ }),
+
+/***/ "./src/dom.js":
+/*!********************!*\
+  !*** ./src/dom.js ***!
+  \********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createTodaysIcon": () => (/* binding */ createTodaysIcon),
+/* harmony export */   "createWeeklyIcon": () => (/* binding */ createWeeklyIcon),
+/* harmony export */   "changeCity": () => (/* binding */ changeCity),
+/* harmony export */   "changeCityDesc": () => (/* binding */ changeCityDesc),
+/* harmony export */   "changeFeelsLike": () => (/* binding */ changeFeelsLike),
+/* harmony export */   "changeHumidty": () => (/* binding */ changeHumidty),
+/* harmony export */   "changeRainChance": () => (/* binding */ changeRainChance),
+/* harmony export */   "changeWindSpeed": () => (/* binding */ changeWindSpeed)
+/* harmony export */ });
+/* harmony import */ var _getElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getElement.js */ "./src/getElement.js");
+
+// import {  } from "module";
+
+// ** Create Icons
+function createWeeklyIcon(i, weather) {
+  let check = [...i.children];
+  if (check.length > 0) {
+    const beGone = i.firstElementChild;
+    beGone.remove();
+    let div = document.createElement("div");
+    div.classList.add(weather.shift(), "icon");
+    i.append(div);
+  } else {
+    let div = document.createElement("div");
+    div.classList.add(weather.shift(), "icon");
+    i.append(div);
+  }
+  return i;
+}
+function createTodaysIcon(data) {
+  let weatherData = data.weather[0].main;
+  const mainIcon = document.querySelector(".weather-info-icon");
+
+  let check = [...mainIcon.children];
+  if (check.length > 1) {
+    const beGone = document.querySelector(".bigIcon");
+    beGone.remove();
+    let div = document.createElement("div");
+    div.classList.add(weatherData, "bigIcon");
+    mainIcon.append(div);
+  } else {
+    let div = document.createElement("div");
+    div.classList.add(weatherData, "bigIcon");
+    mainIcon.append(div);
+  }
+
+  // console.log(check);
+  return mainIcon;
+}
+
+// ** Change Title Location
+function changeCity(weatherData) {
+  const city = document.querySelector(".weather-info-city");
+  city.textContent = weatherData.name;
+  return city;
+}
+function changeCityDesc(weatherData) {
+  const cityDesc = document.querySelector(".weather-info-description");
+  cityDesc.textContent = weatherData.weather[0].description;
+  // .charAt(0)
+  // .toUpperCase();
+  // weatherData.weather[0].description.slice(1);
+  return cityDesc;
+}
+
+// ** Change sidebar Text
+function changeFeelsLike(weatherData) {
+  const text = document.querySelector("#feels-like");
+  text.textContent = weatherData.main.feels_like;
+  return text;
+}
+function changeHumidty(weatherData) {
+  const text = document.querySelector("#humidity");
+  text.textContent = weatherData.main.humidity + "%";
+  return text;
+}
+function changeRainChance(weatherData) {
+  const text = document.querySelector("#chance-of-rain");
+  text.textContent = weatherData.minutely[0].precipitation + "mm";
+
+  return text;
+}
+function changeWindSpeed(weatherData) {
+  const text = document.querySelector("#wind-speed");
+  text.textContent = weatherData.wind.speed + "km/h";
+  return text;
+}
 
 
 
@@ -26569,6 +26676,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var autoprefixer__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(autoprefixer__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _getElement_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getElement.js */ "./src/getElement.js");
 /* harmony import */ var _changeUnits_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./changeUnits.js */ "./src/changeUnits.js");
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dom.js */ "./src/dom.js");
+
 
 
 
@@ -26589,19 +26698,68 @@ async function deniedLocation() {
     { mode: "cors" }
   );
   const nWData = await nextWeek.json();
-  // console.log(nWData);
-  // console.log(data);
+
+  // changeFeelsLike(data);
+  // changeCity(data);
+  // changeCityDesc(data);
+  // changeTodaysTempF(data);
+  // changeNWeekTempF(nWData);
+  // createTodaysIcon(data);
+  //
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCityDesc)(data);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
+  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
   (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeTodaysTempF)(data);
   (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeNWeekTempF)(nWData);
-  return data;
+  return { data };
 }
 
 function successLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
+  storeValue();
   changeLocation(lat, lon);
-  // console.log(data);
-  // return data;
+  return { data: autoprefixer__WEBPACK_IMPORTED_MODULE_0__.data };
+}
+function storeValue() {
+  const btn = document.querySelector(".btn");
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const form = document.querySelector(".form");
+    const search = document.querySelector("#search").value;
+    searchLocation(search);
+    form.reset();
+  });
+}
+
+async function searchLocation(value) {
+  let search = value;
+  const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
+  if (!value == "") {
+    // console.log(value);
+    let city = value;
+    let api = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
+      { mode: "cors" }
+    );
+    let data = await api.json();
+    let location = data.cod;
+    if (location == 404) {
+      const error = document.querySelector(".error-msg");
+      error.style.display = "inline";
+    } else {
+      let lat = data.coord.lat;
+      let lon = data.coord.lon;
+      // changeLocation(lat, lon);
+      changeLocation(lat, lon);
+    }
+  }
+
+  return location;
 }
 
 // Change location  lat and lon
@@ -26624,21 +26782,30 @@ async function changeLocation(lat, lon) {
       { mode: "cors" }
     );
     data = await todayApi.json();
-    // Parse Data
-
+    // Parse Data and Create Dom Items
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCityDesc)(data);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeTodaysTempF)(data);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeNWeekTempF)(nWData);
-    // createTodaysIcon(data.weather[0].main, get(".weather-details-icon"));
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
   } else {
-    let weatherIcon = data.weather[0].main;
-    let mainIcon = (0,_getElement_js__WEBPACK_IMPORTED_MODULE_1__.default)(".weather-info-icon");
-    (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.createTodaysIcon)(weatherIcon, mainIcon);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCityDesc)(data);
+    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeNWeekTempC)(nWData);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeTodaysTempC)(data);
-    // createTodaysIcon(, get(".weather-details-icon"));
+    // console.log(nWData);
   }
 
-  return data;
+  return { data };
 }
 
 // changeTodaysTemp();
@@ -26811,14 +26978,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _date_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./date.js */ "./src/date.js");
 /* harmony import */ var _location_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./location.js */ "./src/location.js");
 /* harmony import */ var _getElement_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getElement.js */ "./src/getElement.js");
+/* harmony import */ var _dom_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dom.js */ "./src/dom.js");
+
 
 
 
 
 
 function getLocation() {
-  navigator.geolocation.getCurrentPosition(_location_js__WEBPACK_IMPORTED_MODULE_2__.successLocation, _location_js__WEBPACK_IMPORTED_MODULE_2__.deniedLocation);
+  const weatherData = navigator.geolocation.getCurrentPosition(
+    _location_js__WEBPACK_IMPORTED_MODULE_2__.successLocation,
+    _location_js__WEBPACK_IMPORTED_MODULE_2__.deniedLocation
+  );
+  // console.log(weatherData);
 }
+
+// const weatherData = getLocation();
+
 // setInterval(setTime, 1000);
 window.addEventListener("DOMContentLoaded", getLocation());
 

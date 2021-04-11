@@ -179,4 +179,9 @@ svg {
   background-repeat: no-repeat;
 }
 
+.error-msg {
+  color: #f86363;
+  font-size: 0.35em;
+}
+
 /*# sourceMappingURL=main.css.map*/

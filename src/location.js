@@ -5,8 +5,17 @@ import {
   changeTodaysTempF,
   changeNWeekTempC,
   changeNWeekTempF,
-  createTodaysIcon,
 } from "./changeUnits.js";
+import {
+  createTodaysIcon,
+  createWeeklyIcon,
+  changeCity,
+  changeCityDesc,
+  changeFeelsLike,
+  changeHumidty,
+  changeRainChance,
+  changeWindSpeed,
+} from "./dom.js";
 
 async function deniedLocation() {
   const city = "Chicago";
@@ -24,19 +33,68 @@ async function deniedLocation() {
     { mode: "cors" }
   );
   const nWData = await nextWeek.json();
-  // console.log(nWData);
-  // console.log(data);
+
+  // changeFeelsLike(data);
+  // changeCity(data);
+  // changeCityDesc(data);
+  // changeTodaysTempF(data);
+  // changeNWeekTempF(nWData);
+  // createTodaysIcon(data);
+  //
+  changeCity(data);
+  changeCityDesc(data);
+  changeWindSpeed(data);
+  changeRainChance(nWData);
+  changeHumidty(data);
+  changeFeelsLike(data);
+  createTodaysIcon(data);
   changeTodaysTempF(data);
   changeNWeekTempF(nWData);
-  return data;
+  return { data };
 }
 
 function successLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
+  storeValue();
   changeLocation(lat, lon);
-  // console.log(data);
-  // return data;
+  return { data };
+}
+function storeValue() {
+  const btn = document.querySelector(".btn");
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    const form = document.querySelector(".form");
+    const search = document.querySelector("#search").value;
+    searchLocation(search);
+    form.reset();
+  });
+}
+
+async function searchLocation(value) {
+  let search = value;
+  const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
+  if (!value == "") {
+    // console.log(value);
+    let city = value;
+    let api = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
+      { mode: "cors" }
+    );
+    let data = await api.json();
+    let location = data.cod;
+    if (location == 404) {
+      const error = document.querySelector(".error-msg");
+      error.style.display = "inline";
+    } else {
+      let lat = data.coord.lat;
+      let lon = data.coord.lon;
+      // changeLocation(lat, lon);
+      changeLocation(lat, lon);
+    }
+  }
+
+  return location;
 }
 
 // Change location  lat and lon
@@ -59,21 +117,30 @@ async function changeLocation(lat, lon) {
       { mode: "cors" }
     );
     data = await todayApi.json();
-    // Parse Data
-
+    // Parse Data and Create Dom Items
+    changeWindSpeed(data);
+    changeRainChance(nWData);
+    changeHumidty(data);
+    changeFeelsLike(data);
+    changeCity(data);
+    changeCityDesc(data);
     changeTodaysTempF(data);
     changeNWeekTempF(nWData);
-    // createTodaysIcon(data.weather[0].main, get(".weather-details-icon"));
+    createTodaysIcon(data);
   } else {
-    let weatherIcon = data.weather[0].main;
-    let mainIcon = get(".weather-info-icon");
-    createTodaysIcon(weatherIcon, mainIcon);
+    changeWindSpeed(data);
+    changeRainChance(nWData);
+    changeHumidty(data);
+    changeFeelsLike(data);
+    changeCity(data);
+    changeCityDesc(data);
+    createTodaysIcon(data);
     changeNWeekTempC(nWData);
     changeTodaysTempC(data);
-    // createTodaysIcon(, get(".weather-details-icon"));
+    // console.log(nWData);
   }
 
-  return data;
+  return { data };
 }
 
 // changeTodaysTemp();

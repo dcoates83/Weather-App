@@ -1,12 +1,13 @@
 import get from "./getElement.js";
+import { createTodaysIcon, createWeeklyIcon } from "./dom.js";
+
+// ** Change Today Main Weather Temperature
 function changeTodaysTempC(data) {
   const todaysTemp = get(".weather-info-temperature");
-  console.log(data.weather[0].main);
   todaysTemp.textContent = data.main.temp + " °C";
 }
 function changeTodaysTempF(data) {
   const todaysTemp = get(".weather-info-temperature");
-  console.log(data.weather[0].main);
   todaysTemp.textContent = data.main.temp + " °F";
 }
 
@@ -34,7 +35,7 @@ function changeNWeekTempF(data) {
     i.textContent = min.shift() + " °F";
   });
   icons.forEach((i) => {
-    createIcon(i, weather);
+    createWeeklyIcon(i, weather);
   });
 }
 
@@ -65,20 +66,6 @@ function changeNWeekTempC(data) {
   icons.forEach((i) => {
     createWeeklyIcon(i, weather);
   });
-}
-// ** Create Icons
-function createWeeklyIcon(i, weather) {
-  let div = document.createElement("div");
-  div.classList.add(weather.shift(), "icon");
-  i.append(div);
-  return i;
-}
-function createTodaysIcon(weather, html) {
-  let div = document.createElement("div");
-  div.classList.add(weather, "bigIcon");
-  html.append(div);
-
-  return html;
 }
 
 export {

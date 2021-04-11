@@ -54,7 +54,6 @@ function getTime(params) {
     hour: "2-digit",
     minute: "2-digit",
   });
-  // time.toLocaleTimeString("en-US");
   return time;
 }
 function setTime(params) {
@@ -62,7 +61,25 @@ function setTime(params) {
   let html = get(".weather-info-time");
   html.textContent = time;
 }
-setTime();
+function days() {
+  const weekdays = [...document.querySelectorAll(".forecast-daily-day")];
+  let day = new Date();
+  let week = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  // console.log(weekdays);
+  for (let i = 0; i < 7; i++) {
+    weekdays[i].textContent = week[day.getDay() + i];
+  }
+}
+days();
+// setTime();
 getDate();
 
 export { getDate, setTime };
