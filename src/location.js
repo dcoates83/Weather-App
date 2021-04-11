@@ -5,6 +5,7 @@ import {
   changeTodaysTempF,
   changeNWeekTempC,
   changeNWeekTempF,
+  createTodaysIcon,
 } from "./changeUnits.js";
 
 async function deniedLocation() {
@@ -30,10 +31,10 @@ async function deniedLocation() {
   return data;
 }
 
-async function successLocation(position) {
+function successLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
-  let data = await changeLocation(lat, lon);
+  changeLocation(lat, lon);
   // console.log(data);
   // return data;
 }
@@ -49,6 +50,7 @@ async function changeLocation(lat, lon) {
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts${key}&units=metric`,
     { mode: "cors" }
   );
+  // Fetch this current data and weekly Data
   const nWData = await nextWeek.json();
   let data = await todayApi.json();
   if (data.sys.country == "US") {
@@ -57,12 +59,18 @@ async function changeLocation(lat, lon) {
       { mode: "cors" }
     );
     data = await todayApi.json();
+    // Parse Data
+
     changeTodaysTempF(data);
     changeNWeekTempF(nWData);
+    // createTodaysIcon(data.weather[0].main, get(".weather-details-icon"));
   } else {
-    console.log(nWData);
+    let weatherIcon = data.weather[0].main;
+    let mainIcon = get(".weather-info-icon");
+    createTodaysIcon(weatherIcon, mainIcon);
     changeNWeekTempC(nWData);
     changeTodaysTempC(data);
+    // createTodaysIcon(, get(".weather-details-icon"));
   }
 
   return data;
