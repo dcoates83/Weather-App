@@ -59,3 +59,86 @@ svg {
 .weather-details-container {
   text-align: center;
 }
+
+.units {
+  padding-left: 1em;
+  display: flex;
+  // align-items: baseline;
+  justify-content: center;
+}
+.weather-info-units {
+  border: 1px solid black;
+  text-align: center;
+  // padding-right: 2px;
+  // padding-top: 2px;
+  padding: 5px 5px 0;
+  // vertical-align: bottom;
+  border-radius: 50%;
+}
+.icon {
+  height: 3rem;
+  width: 3rem;
+}
+.show-me {
+  display: none;
+}
+
+.Cloudy-day {
+  background: url("./SVG/cloudy-day.svg");
+  background-repeat: no-repeat;
+}
+
+.Cloudy-night {
+  background: url("./SVG/cloudy-night.svg");
+  background-repeat: no-repeat;
+}
+
+.Clouds {
+  background: url("./SVG/cloudy.svg");
+  background-repeat: no-repeat;
+}
+
+.Humidity {
+  background: url("./SVG/humidity.svg");
+  background-repeat: no-repeat;
+}
+
+.Lightning {
+  background: url("./SVG/lightning.svg");
+  background-repeat: no-repeat;
+}
+
+.Mist {
+  background: url("./SVG/mist.svg");
+  background-repeat: no-repeat;
+}
+
+.Moon {
+  background: url("./SVG/moon.svg");
+  background-repeat: no-repeat;
+}
+
+.Rain {
+  background: url("./SVG/rainy.svg");
+  background-repeat: no-repeat;
+  fill: black;
+}
+
+.Snow {
+  background: url("./SVG/snow.svg");
+  background-repeat: no-repeat;
+}
+
+.Sun {
+  background: url("./SVG/sun.svg");
+  background-repeat: no-repeat;
+}
+.Clear {
+  background: url("./SVG/sun.svg");
+  background-repeat: no-repeat;
+}
+
+.Wind {
+  background: url("./SVG/wind.svg");
+  background-repeat: no-repeat;
+}
