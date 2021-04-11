@@ -10,21 +10,27 @@
   <body>
     <div class="main-weather-container">
       <div class="weather-info">
-        <h1 class="weather-info-city">Auckland</h1>
+        <h1 class="weather-info-city">Chicago</h1>
         <h2 class="weather-info-description">Broken Clouds</h2>
 
         <h3 class="weather-info-date">Sunday, 11th Apr '21</h3>
-        <div class="units">
+        <!-- <div class="units">
           <h3 class="weather-info-units-f weather-info-units">F</h3>
           <h3 class="weather-info-units-c weather-info-units">C</h3>
-        </div>
+        </div> -->
         <div class="search-box">
-          <input class="search-box-input" placeholder="Search Location..." />
+          <form action="" class="form">
+            <input
+              id="search"
+              class="search-box-input"
+              placeholder="Search Location..."
+            />
+            <button class="btn" type="submit">Search</button>
+          </form>
           <div class="search"></div>
         </div>
         <div class="error-msg" style="display: none">
-          Location not found.<br />Search must be in the form of "City", "City,
-          State" or "City, Country".
+          Location not found.<br />Search must be in the form of "City".
         </div>
         <!-- <img src="./SVG/lightning.svg" alt="" srcset="" class="" /> -->
       </div>
@@ -43,8 +49,7 @@
           ></path>
         </svg> -->
         <div class="weather-info-icon-text">
-          <h2 class="weather-info-time">4:43 am</h2>
-
+          <!-- <h2 class="weather-info-time">4:43 am</h2> -->
           <h1 class="weather-info-temperature">20 °C</h1>
         </div>
       </div>
@@ -142,7 +147,7 @@
             </svg>
           </div>
           <div class="weather-details-info">
-            <div class="weather-details-label">Chance of Rain</div>
+            <div class="weather-details-label">Rain</div>
             <div class="weather-details-data" id="chance-of-rain">0.98 %</div>
           </div>
         </div>
