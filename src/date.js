@@ -73,9 +73,14 @@ function days() {
     "Friday",
     "Saturday",
   ];
-  // console.log(weekdays);
+  let counter = 0;
   for (let i = 0; i < 7; i++) {
-    weekdays[i].textContent = week[day.getDay() + i];
+    let newDay = week[day.getDay() + i + 1];
+    if (newDay == undefined) {
+      newDay = week[counter];
+      counter++;
+    }
+    weekdays[i].textContent = newDay;
   }
 }
 days();
