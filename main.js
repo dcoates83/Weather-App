@@ -26706,7 +26706,7 @@ async function deniedLocation() {
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCityDesc)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
-  (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+  // changeRainChance(nWData);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
@@ -26780,7 +26780,7 @@ async function changeLocation(lat, lon) {
     // Parse Data and Create Dom Items
 
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
-    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+    // changeRainChance(nWData);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
@@ -26790,7 +26790,7 @@ async function changeLocation(lat, lon) {
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
   } else {
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
-    (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
+    // changeRainChance(nWData);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeFeelsLike)(data);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
