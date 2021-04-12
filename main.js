@@ -26415,7 +26415,6 @@ function changeNWeekTempC(data) {
     max.push(i.temp.max);
     min.push(i.temp.min);
     weather.push(i.weather[0].main);
-    // maybe add description
   });
 
   high.forEach((i) => {
@@ -26443,8 +26442,7 @@ function changeNWeekTempC(data) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getDate": () => (/* binding */ getDate),
-/* harmony export */   "setTime": () => (/* binding */ setTime)
+/* harmony export */   "getDate": () => (/* binding */ getDate)
 /* harmony export */ });
 /* harmony import */ var _getElement_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getElement.js */ "./src/getElement.js");
 
@@ -26497,19 +26495,20 @@ function addEnding(i) {
   }
   return i + "th";
 }
-
-function getTime(params) {
-  const time = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return time;
-}
-function setTime(params) {
-  let time = getTime();
-  let html = (0,_getElement_js__WEBPACK_IMPORTED_MODULE_0__.default)(".weather-info-time");
-  html.textContent = time;
-}
+// Decided against using - In case someone changes the location the time doesnt match.
+// function getTime(params) {
+//   const time = new Date().toLocaleTimeString([], {
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   });
+//   return time;
+// }
+// function setTime(params) {
+//   let time = getTime();
+//   let html = get(".weather-info-time");
+//   html.textContent = time;
+// }
+// ** Create each weekly days' name
 function days() {
   const weekdays = [...document.querySelectorAll(".forecast-daily-day")];
   let day = new Date();
@@ -26522,9 +26521,14 @@ function days() {
     "Friday",
     "Saturday",
   ];
-  // console.log(weekdays);
+  let counter = 0;
   for (let i = 0; i < 7; i++) {
-    weekdays[i].textContent = week[day.getDay() + i];
+    let newDay = week[day.getDay() + i + 1];
+    if (newDay == undefined) {
+      newDay = week[counter];
+      counter++;
+    }
+    weekdays[i].textContent = newDay;
   }
 }
 days();
@@ -26560,6 +26564,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // ** Create Icons
 function createWeeklyIcon(i, weather) {
+  // remove previous icon
   let check = [...i.children];
   if (check.length > 0) {
     const beGone = i.firstElementChild;
@@ -26577,7 +26582,7 @@ function createWeeklyIcon(i, weather) {
 function createTodaysIcon(data) {
   let weatherData = data.weather[0].main;
   const mainIcon = document.querySelector(".weather-info-icon");
-
+  // remove previous icon
   let check = [...mainIcon.children];
   if (check.length > 1) {
     const beGone = document.querySelector(".bigIcon");
@@ -26590,8 +26595,6 @@ function createTodaysIcon(data) {
     div.classList.add(weatherData, "bigIcon");
     mainIcon.append(div);
   }
-
-  // console.log(check);
   return mainIcon;
 }
 
@@ -26603,7 +26606,7 @@ function changeCity(weatherData) {
 }
 function changeCityDesc(weatherData) {
   const cityDesc = document.querySelector(".weather-info-description");
-  cityDesc.textContent = weatherData.weather[0].description;
+  cityDesc.textContent = "- " + weatherData.weather[0].description + " -";
   // .charAt(0)
   // .toUpperCase();
   // weatherData.weather[0].description.slice(1);
@@ -26681,7 +26684,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+// Set Default location
 async function deniedLocation() {
   const city = "Chicago";
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
@@ -26692,20 +26695,14 @@ async function deniedLocation() {
   const data = await response.json();
   const lat = await data.coord.lat;
   const lon = await data.coord.lon;
-  // console.log(lat, lon);
+  // This one is for long range forcasts
   const nextWeek = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts${key}&units=imperial`,
     { mode: "cors" }
   );
   const nWData = await nextWeek.json();
-
-  // changeFeelsLike(data);
-  // changeCity(data);
-  // changeCityDesc(data);
-  // changeTodaysTempF(data);
-  // changeNWeekTempF(nWData);
-  // createTodaysIcon(data);
-  //
+  // Parse Data
+  storeValue();
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCity)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeCityDesc)(data);
   (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
@@ -26721,6 +26718,7 @@ async function deniedLocation() {
 function successLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
+  // Values stored for Searching by location
   storeValue();
   changeLocation(lat, lon);
   return { data: autoprefixer__WEBPACK_IMPORTED_MODULE_0__.data };
@@ -26737,10 +26735,8 @@ function storeValue() {
 }
 
 async function searchLocation(value) {
-  let search = value;
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
   if (!value == "") {
-    // console.log(value);
     let city = value;
     let api = await fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
@@ -26754,7 +26750,6 @@ async function searchLocation(value) {
     } else {
       let lat = data.coord.lat;
       let lon = data.coord.lon;
-      // changeLocation(lat, lon);
       changeLocation(lat, lon);
     }
   }
@@ -26783,6 +26778,7 @@ async function changeLocation(lat, lon) {
     );
     data = await todayApi.json();
     // Parse Data and Create Dom Items
+
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeWindSpeed)(data);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeRainChance)(nWData);
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.changeHumidty)(data);
@@ -26802,13 +26798,11 @@ async function changeLocation(lat, lon) {
     (0,_dom_js__WEBPACK_IMPORTED_MODULE_3__.createTodaysIcon)(data);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeNWeekTempC)(nWData);
     (0,_changeUnits_js__WEBPACK_IMPORTED_MODULE_2__.changeTodaysTempC)(data);
-    // console.log(nWData);
   }
 
   return { data };
 }
 
-// changeTodaysTemp();
 
 
 
@@ -26990,12 +26984,8 @@ function getLocation() {
     _location_js__WEBPACK_IMPORTED_MODULE_2__.successLocation,
     _location_js__WEBPACK_IMPORTED_MODULE_2__.deniedLocation
   );
-  // console.log(weatherData);
 }
 
-// const weatherData = getLocation();
-
-// setInterval(setTime, 1000);
 window.addEventListener("DOMContentLoaded", getLocation());
 
 })();
