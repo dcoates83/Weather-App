@@ -48,19 +48,20 @@ function addEnding(i) {
   }
   return i + "th";
 }
-
-function getTime(params) {
-  const time = new Date().toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return time;
-}
-function setTime(params) {
-  let time = getTime();
-  let html = get(".weather-info-time");
-  html.textContent = time;
-}
+// Decided against using - In case someone changes the location the time doesnt match.
+// function getTime(params) {
+//   const time = new Date().toLocaleTimeString([], {
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   });
+//   return time;
+// }
+// function setTime(params) {
+//   let time = getTime();
+//   let html = get(".weather-info-time");
+//   html.textContent = time;
+// }
+// ** Create each weekly days' name
 function days() {
   const weekdays = [...document.querySelectorAll(".forecast-daily-day")];
   let day = new Date();
@@ -87,4 +88,4 @@ days();
 // setTime();
 getDate();
 
-export { getDate, setTime };
+export { getDate };

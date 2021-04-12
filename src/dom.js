@@ -3,6 +3,7 @@ import { get } from "./getElement.js";
 
 // ** Create Icons
 function createWeeklyIcon(i, weather) {
+  // remove previous icon
   let check = [...i.children];
   if (check.length > 0) {
     const beGone = i.firstElementChild;
@@ -20,7 +21,7 @@ function createWeeklyIcon(i, weather) {
 function createTodaysIcon(data) {
   let weatherData = data.weather[0].main;
   const mainIcon = document.querySelector(".weather-info-icon");
-
+  // remove previous icon
   let check = [...mainIcon.children];
   if (check.length > 1) {
     const beGone = document.querySelector(".bigIcon");
@@ -33,8 +34,6 @@ function createTodaysIcon(data) {
     div.classList.add(weatherData, "bigIcon");
     mainIcon.append(div);
   }
-
-  // console.log(check);
   return mainIcon;
 }
 
@@ -46,7 +45,7 @@ function changeCity(weatherData) {
 }
 function changeCityDesc(weatherData) {
   const cityDesc = document.querySelector(".weather-info-description");
-  cityDesc.textContent = weatherData.weather[0].description;
+  cityDesc.textContent = "- " + weatherData.weather[0].description + " -";
   // .charAt(0)
   // .toUpperCase();
   // weatherData.weather[0].description.slice(1);

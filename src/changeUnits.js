@@ -54,7 +54,6 @@ function changeNWeekTempC(data) {
     max.push(i.temp.max);
     min.push(i.temp.min);
     weather.push(i.weather[0].main);
-    // maybe add description
   });
 
   high.forEach((i) => {

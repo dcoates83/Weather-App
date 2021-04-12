@@ -9,10 +9,6 @@ function getLocation() {
     successLocation,
     deniedLocation
   );
-  // console.log(weatherData);
 }
 
-// const weatherData = getLocation();
-
-// setInterval(setTime, 1000);
 window.addEventListener("DOMContentLoaded", getLocation());

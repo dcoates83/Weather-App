@@ -1,22 +1,57 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+}
+
 svg {
   height: 3.125rem;
   width: 3.125rem;
   fill: black;
 }
+// Long Range Forecast
 .forecast-daily-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  height: 30vh;
+  min-height: 30vh;
+  padding: 1em;
   align-items: center;
   text-align: center;
+  background-color: #343d4b;
+  color: #fff;
 }
-
+.forecast-daily {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+}
+.forecast-daily-day {
+  margin: 0;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+.forecast-daily-temperature {
+  margin: 0;
+  margin-bottom: 5px;
+}
+// ** Top Container for todays forcast
 .main-weather-container {
   display: flex;
-  justify-content: space-between;
-  // margin-bottom: 1em;
+  justify-content: space-around;
   padding-right: 1em;
   align-items: center;
+  flex-direction: column;
+  height: 65vh;
+  color: rgb(71, 71, 71);
+}
+@media (min-width: 650px) {
+  .main-weather-container {
+    flex-direction: row;
+  }
+  .weather-info {
+    height: 70vh;
+  }
 }
 .weather-info-icon {
   align-self: center;
@@ -28,29 +63,38 @@ svg {
   }
 }
 .weather-info {
+  position: relative;
   font-size: 3rem;
-  height: 60vh;
-  width: 35vw;
+  height: 40vh;
+  min-width: 35vw;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 25px;
+
   h1 {
     font-size: 2.5rem;
     margin-bottom: 0.25em;
+    color: #000;
   }
   h2 {
     font-size: 32px;
     margin-top: 0;
+    margin-bottom: 0;
   }
   h3 {
     font-size: 1.15rem;
   }
   input {
-    width: 15vw;
-    border-radius: 0.3125rem;
+    width: 10vw;
   }
 }
+.error-msg {
+  color: rgb(248, 99, 99);
+  font-size: 0.35em;
+}
+// **Only Seen On large screens/Creates a bonus sidebar
 .weather-details-icon {
   padding: 0.75em;
   display: flex;
@@ -58,45 +102,31 @@ svg {
 }
 .weather-details-container {
   text-align: center;
+  display: none;
 }
-
-.units {
-  padding-left: 1em;
-  display: flex;
-  // align-items: baseline;
-  justify-content: center;
+@media (min-width: 1200px) {
+  .weather-details-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
-.weather-info-units {
-  border: 1px solid black;
-  text-align: center;
-  // padding-right: 2px;
-  // padding-top: 2px;
-  padding: 5px 5px 0;
-  // vertical-align: bottom;
-  border-radius: 50%;
-}
+// **Weekly Icon
 .icon {
   height: 3rem;
   width: 3rem;
+  margin-right: 2px;
 }
+// **Daily Icon
 .bigIcon {
   height: 25vh;
   width: 25vw;
+  filter: invert(11%) sepia(0%) saturate(2909%) hue-rotate(239deg)
+    brightness(98%) contrast(77%);
 }
 .show-me {
   display: none;
 }
-
-.Cloudy-day {
-  background: url("./SVG/cloudy-day.svg");
-  background-repeat: no-repeat;
-}
-
-.Cloudy-night {
-  background: url("./SVG/cloudy-night.svg");
-  background-repeat: no-repeat;
-}
-
+// ** Link to files to display images
 .Clouds {
   background: url("./SVG/cloudy.svg");
   background-repeat: no-repeat;
@@ -114,11 +144,6 @@ svg {
 
 .Mist {
   background: url("./SVG/mist.svg");
-  background-repeat: no-repeat;
-}
-
-.Moon {
-  background: url("./SVG/moon.svg");
   background-repeat: no-repeat;
 }
 
@@ -145,9 +170,4 @@ svg {
 .Wind {
   background: url("./SVG/wind.svg");
   background-repeat: no-repeat;
-}
-.error-msg {
-  color: rgb(248, 99, 99);
-  font-size: 0.35em;
-  // display: inlin;
 }

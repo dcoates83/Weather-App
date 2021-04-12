@@ -16,7 +16,7 @@ import {
   changeRainChance,
   changeWindSpeed,
 } from "./dom.js";
-
+// Set Default location
 async function deniedLocation() {
   const city = "Chicago";
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
@@ -27,20 +27,14 @@ async function deniedLocation() {
   const data = await response.json();
   const lat = await data.coord.lat;
   const lon = await data.coord.lon;
-  // console.log(lat, lon);
+  // This one is for long range forcasts
   const nextWeek = await fetch(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts${key}&units=imperial`,
     { mode: "cors" }
   );
   const nWData = await nextWeek.json();
-
-  // changeFeelsLike(data);
-  // changeCity(data);
-  // changeCityDesc(data);
-  // changeTodaysTempF(data);
-  // changeNWeekTempF(nWData);
-  // createTodaysIcon(data);
-  //
+  // Parse Data
+  storeValue();
   changeCity(data);
   changeCityDesc(data);
   changeWindSpeed(data);
@@ -56,6 +50,7 @@ async function deniedLocation() {
 function successLocation(position) {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
+  // Values stored for Searching by location
   storeValue();
   changeLocation(lat, lon);
   return { data };
@@ -72,10 +67,8 @@ function storeValue() {
 }
 
 async function searchLocation(value) {
-  let search = value;
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
   if (!value == "") {
-    // console.log(value);
     let city = value;
     let api = await fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
@@ -89,7 +82,6 @@ async function searchLocation(value) {
     } else {
       let lat = data.coord.lat;
       let lon = data.coord.lon;
-      // changeLocation(lat, lon);
       changeLocation(lat, lon);
     }
   }
@@ -118,6 +110,7 @@ async function changeLocation(lat, lon) {
     );
     data = await todayApi.json();
     // Parse Data and Create Dom Items
+
     changeWindSpeed(data);
     changeRainChance(nWData);
     changeHumidty(data);
@@ -137,11 +130,9 @@ async function changeLocation(lat, lon) {
     createTodaysIcon(data);
     changeNWeekTempC(nWData);
     changeTodaysTempC(data);
-    // console.log(nWData);
   }
 
   return { data };
 }
 
-// changeTodaysTemp();
 export { changeLocation, successLocation, deniedLocation };
