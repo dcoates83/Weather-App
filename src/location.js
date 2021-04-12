@@ -38,7 +38,7 @@ async function deniedLocation() {
   changeCity(data);
   changeCityDesc(data);
   changeWindSpeed(data);
-  changeRainChance(nWData);
+  // changeRainChance(nWData);
   changeHumidty(data);
   changeFeelsLike(data);
   createTodaysIcon(data);
@@ -112,7 +112,7 @@ async function changeLocation(lat, lon) {
     // Parse Data and Create Dom Items
 
     changeWindSpeed(data);
-    changeRainChance(nWData);
+    // changeRainChance(nWData);
     changeHumidty(data);
     changeFeelsLike(data);
     changeCity(data);
@@ -122,7 +122,7 @@ async function changeLocation(lat, lon) {
     createTodaysIcon(data);
   } else {
     changeWindSpeed(data);
-    changeRainChance(nWData);
+    // changeRainChance(nWData);
     changeHumidty(data);
     changeFeelsLike(data);
     changeCity(data);
