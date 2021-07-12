@@ -20,7 +20,7 @@ import {
 async function deniedLocation() {
   const city = "Chicago";
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=`;
   let response = await fetch(`${url}${city}${key}&units=imperial`, {
     mode: "cors",
   });
@@ -71,7 +71,7 @@ async function searchLocation(value) {
   if (!value == "") {
     let city = value;
     let api = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}${key}`,
       { mode: "cors" }
     );
     let data = await api.json();
@@ -93,7 +93,7 @@ async function searchLocation(value) {
 async function changeLocation(lat, lon) {
   const key = "&appid=43947b9200f7092a05e71ceda1f7f280";
   let todayApi = await fetch(
-    `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}${key}&units=metric`,
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}${key}&units=metric`,
     { mode: "cors" }
   );
   const nextWeek = await fetch(
@@ -105,7 +105,7 @@ async function changeLocation(lat, lon) {
   let data = await todayApi.json();
   if (data.sys.country == "US") {
     todayApi = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}${key}&units=imperial`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}${key}&units=imperial`,
       { mode: "cors" }
     );
     data = await todayApi.json();
